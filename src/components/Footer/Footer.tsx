@@ -10,7 +10,7 @@ const Footer = () => {
           Lulu Lodge
         </Link>
 
-        <h4 className='font-semibold text-[40px] py-6'>Contact</h4>
+        <h4 className='font-semibold text-[40px] py-6 text-black dark:text-[#ffffffea]'>Contact</h4>
 
         <div className='flex flex-wrap gap-16 items-center justify-between'>
           <div className='flex-1'>

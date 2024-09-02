@@ -25,7 +25,7 @@ export function CardDemo({
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute w-full h-full top-0 left-0 bg-black opacity-60 transition duration-300"></div>
+        <div className="absolute w-full h-full top-0 left-0 bg-dark-600 opacity-60 transition duration-300"></div>
         <div className="flex flex-row items-center space-x-4 z-10">
           <div className="flex flex-col"></div>
         </div>
