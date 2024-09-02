@@ -73,6 +73,8 @@ const Search: FC<Props> = ({
           Search
         </button>
       </div>
+
+      
     </section>
   );
 };

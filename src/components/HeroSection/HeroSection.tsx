@@ -2,10 +2,20 @@ import React from "react";
 import "@fontsource/montserrat/700.css"; // Import the Montserrat font weight 700 (bold)
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
-import CountUpNumber from "../CountUpNumber.tsx/CountUpNumber";
-import Counter from "./Counter";
+import { useRouter } from "next/navigation";
+
+
+
+
 
 const HeroSection = () => {
+
+const router = useRouter();
+
+  const handleFilterClick = () => {
+    router.push(`/stay`);
+  };
+
   return (
     <section className="flex justify-center items-center">
       <div className="py-8 h-full text-center">
@@ -29,7 +39,9 @@ const HeroSection = () => {
         </p>
 
         {/* Button */}
-        <button className="btn-primary mx-auto flex items-center justify-center space-x-2">
+        <button 
+        className="btn-primary mx-auto flex items-center justify-center space-x-2"
+        onClick={handleFilterClick}>
           <FontAwesomeIcon icon={faHome} />
           <span>Book Now</span>
         </button>

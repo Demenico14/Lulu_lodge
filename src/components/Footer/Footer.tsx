@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { BsFillSendFill, BsTelephoneOutbound } from 'react-icons/bs';
-import { BiMessageDetail } from 'react-icons/bi';
+import { BiMessageDetail, BiHome } from 'react-icons/bi';
 
 const Footer = () => {
   return (
@@ -14,14 +14,22 @@ const Footer = () => {
 
         <div className='flex flex-wrap gap-16 items-center justify-between'>
           <div className='flex-1'>
-            <p>123 Road</p>
+            
+            <div className='flex items-center'>
+              <BiHome />
+            <p className='ml-2'>1714 BB7, Low Density, Victoria Falls, Zimbabwe</p>
+            </div>
             <div className='flex items-center py-4'>
               <BsFillSendFill />
-              <p className='ml-2'>Lulu Guest Lodge</p>
+              <p className='ml-2'>luluguestlodge@gmail.com</p>
             </div>
             <div className='flex items-center'>
               <BsTelephoneOutbound />
-              <p className='ml-2'>000-000-00</p>
+              <p className='ml-2'>+263-772-451-277</p>
+            </div>
+            <div className='flex items-center'>
+              <BsTelephoneOutbound />
+              <p className='ml-2'> +61-452-156-150</p>
             </div>
             <div className='flex items-center pt-4'>
               <BiMessageDetail />
