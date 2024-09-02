@@ -52,7 +52,7 @@ export function CardContainer() {
         description="Offeering a variety of breakfast options to suit your needs."
       />
       <CardDemo
-        backgroundImage="/assets/images/picture5.jpg"
+        backgroundImage="/assets/images/picture5.webp"
         heading="Stay"
         description="Comfortable Stay in our lodge as you visit the Victoria Falls."
       />

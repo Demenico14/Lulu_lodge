@@ -20,7 +20,7 @@ const FeaturedRoom: FC<Props> = props => {
         <div className="rounded-2xl overflow-hidden h-48 mb-4 md:mb-0">
           
           <Image
-            src="/assets/images/picture8.jpg" 
+            src="/assets/images/picture8.webp" 
             alt={featuredRoom.name}
             width={800}
             height={400}
@@ -30,7 +30,7 @@ const FeaturedRoom: FC<Props> = props => {
         <div className="grid grid-cols-2 gap-8 h-48">
           <div className="rounded-2xl overflow-hidden">
             <Image
-              src="/assets/images/Standard.JPG" 
+              src="/assets/images/Standard.webp" 
               alt={featuredRoom.name}
               width={300} 
               height={300} 
@@ -39,7 +39,7 @@ const FeaturedRoom: FC<Props> = props => {
           </div>
           <div className="rounded-2xl overflow-hidden">
             <Image
-              src="/assets/images/picture7.jpg" 
+              src="/assets/images/picture7.webp" 
               alt={featuredRoom.name}
               width={300} 
               height={300} 
