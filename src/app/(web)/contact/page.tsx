@@ -10,10 +10,10 @@ const Contact: React.FC = () => {
     "border border-gray-300 sm:text-sm text-black rounded-lg block w-full p-2.5 focus:outline-none";
 
   return (
-    <section className="flex items-center justify-center remove-scrollbar mt-28 container mx-auto">
-      <div className="flex w-full max-w-[1200px]">
+    <section className="flex flex-col md:flex-row items-center justify-center remove-scrollbar mt-28 container mx-auto">
+      <div className="flex flex-col md:flex-row w-full max-w-[1200px]">
         {/* Form Container */}
-        <div className="flex-1 max-w-[496px] mr-4">
+        <div className="flex-1 max-w-[496px] mb-8 md:mb-0 md:mr-4">
           <section className="mb-8 flex flex-col space-y-4">
             <h1 className="header text-black dark:text-white">Get In Touch!👋🏾</h1>
             <p className="text-black dark:text-[#ffffffea] xl:text-left">
@@ -71,7 +71,7 @@ const Contact: React.FC = () => {
         </div>
 
         {/* Map Container */}
-        <div className="flex-1 ">
+        <div className="flex-1 md:w-1/2">
           <Map />
         </div>
       </div>
