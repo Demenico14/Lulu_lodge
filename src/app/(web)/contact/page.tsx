@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import styles from "./Contact.module.css"; // Import the CSS module
 import Map from "@/components/Map/Map";
 
 const Contact: React.FC = () => {
@@ -17,7 +16,7 @@ const Contact: React.FC = () => {
         <div className="flex-1 max-w-[496px] mr-4">
           <section className="mb-8 flex flex-col space-y-4">
             <h1 className="header text-black dark:text-white">Get In Touch!👋🏾</h1>
-            <p className={styles.para}>
+            <p className="text-black dark:text-[#ffffffea] xl:text-left">
               We'd love to hear from you. Fill out the form below and we'll get
               back to you as soon as possible.
             </p>
