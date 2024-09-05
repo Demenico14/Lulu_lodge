@@ -128,14 +128,14 @@ const BookRoomCta: FC<Props> = (props) => {
             htmlFor="Children"
             className="block text-sm font-medium text-gray-900 dark:text-gray-400"
           >
-            Adults
+            Children
           </label>
           <input 
             type="number" 
             name="Children" 
             id="Children" 
             value={Children} 
-             onChange={(e) => setAdults(+e.target.value) }
+             onChange={(e) => setChildren(+e.target.value) }
              min={1}
              max={5}
              className="w-full border border-gray-300 rounded-lg p-2.5"
