@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Image from "next/image";
+
 
 // Define types for the props
 interface CardDemoProps {
@@ -25,7 +25,7 @@ export function CardDemo({
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute w-full h-full top-0 left-0 bg-dark-600 opacity-60 transition duration-300"></div>
+        <div className="absolute w-full h-full top-0 left-0 bg-dark-600 opacity-30 transition duration-300"></div>
         <div className="flex flex-row items-center space-x-4 z-10">
           <div className="flex flex-col"></div>
         </div>
@@ -52,9 +52,9 @@ export function CardContainer() {
         description="Offeering a variety of breakfast options to suit your needs."
       />
       <CardDemo
-        backgroundImage="/assets/images/picture5.webp"
-        heading="Stay"
-        description="Comfortable Stay in our lodge as you visit the Victoria Falls."
+        backgroundImage="/assets/images/falls.webp"
+        heading="Tours"
+        description="Explore the majestic Victoria Falls and surrounding attractions with guided tours."
       />
       <CardDemo
         backgroundImage="/assets/images/pickup.jpg"

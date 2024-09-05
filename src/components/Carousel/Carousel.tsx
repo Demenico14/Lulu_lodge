@@ -23,7 +23,7 @@ const Carousel = () => {
           pagination={{ clickable: true, type: 'bullets' }} // Use bullet pagination and make it clickable
           modules={[Navigation, Pagination, Autoplay]} // Add Autoplay to modules
           onSwiper={swiper => console.log(swiper)}
-          className='h-[500px] md:h-[600px] w-[99%]  ' // Increased height
+          className='h-[250px] md:h-[600px] w-full  ' // Increased height
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>

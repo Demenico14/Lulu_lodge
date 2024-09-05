@@ -4,15 +4,22 @@ import { getRoom } from "@/libs/apis";
 import useSWR from "swr";
 import LoadingSpinner from "../../loading";
 import LodgePhotoGallery from "../../../../components/LodgePhotoGallery/LodgePhotoGallery";
-import { MdOutlineCleaningServices } from 'react-icons/md';
-import { LiaFireExtinguisherSolid } from 'react-icons/lia';
-import { AiOutlineMedicineBox } from 'react-icons/ai';
-import { GiSmokeBomb } from 'react-icons/gi';
+import { MdOutlineCleaningServices } from "react-icons/md";
+import { LiaFireExtinguisherSolid } from "react-icons/lia";
+import { AiOutlineMedicineBox } from "react-icons/ai";
+import { GiSmokeBomb } from "react-icons/gi";
+import BookRoomCta from "@/components/BookRoomCta/BookRoomCta";
+import { useState } from "react";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
   const {
     params: { slug },
   } = props;
+
+  const [checkinDate, setCheckinDate] = useState<Date | null >(null)
+  const [checkoutDate, setCheckoutDate] = useState<Date | null >(null)
+  const [Adults, setAdults] = useState(1)
+  const [Children, setChildren] = useState(1)
 
   const fetchRoom = async () => getRoom(slug);
 
@@ -22,6 +29,15 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   if (!isLoading && !room) throw new Error("Cannot fetch data");
 
   if (!room) return <LoadingSpinner />;
+
+  const calcMinCheckoutDate = () => {
+    if(checkinDate) {
+      const nextDay = new Date(checkinDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      return nextDay
+    }
+    return undefined
+  }
 
   return (
     <>
@@ -41,9 +57,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
                   className="md:w-44 w-fit text-center px-2 md:px-0 h-20 md:h-40 mr-3 bg-[#eff0f2] dark:bg-gray-800 rounded-lg grid place-content-center"
                 >
                   <i className={`fa-solid ${amenity.icon} md:text-2xl`}></i>
-                  <p className="text-xs md:text-base pt-3">
-                    {amenity.amenity}
-                  </p>
+                  <p className="text-xs md:text-base pt-3">{amenity.amenity}</p>
                 </div>
               ))}
             </div>
@@ -59,7 +73,10 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               </h2>
               <div className="grid grid-cols-3">
                 {room.offeredAmenities.map((amenity) => (
-                  <div key={amenity._key} className="flex items-center md:my-0 my-1">
+                  <div
+                    key={amenity._key}
+                    className="flex items-center md:my-0 my-1"
+                  >
                     <i className={`fa-solid ${amenity.icon}`}></i>
                     <p className="text-xs md:text-base ml-2">
                       {amenity.amenity}
@@ -101,13 +118,26 @@ const RoomDetails = (props: { params: { slug: string } }) => {
                 <p className="md:text-lg font-semibold"> Customer Reviews</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                 
+                {/* Reviews */}
               </div>
             </div>
           </div>
 
-          <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-amber-50 sticky top-10 h-fit overflow-auto">
-            {/* Booking Details */}
+          <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-amber-50 sticky top-10 h-fit overflow-auto z-10">
+            <BookRoomCta 
+            discount={room.discount}
+            price={room.price}
+            specialNote={room.specialNote}
+            checkinDate={checkinDate}
+            setcheckinDate={setCheckinDate}
+            checkoutDate={checkoutDate}
+            setcheckoutDate={setCheckoutDate}
+            calcMinCheckoutDate={calcMinCheckoutDate}
+            setAdults={setAdults}
+            setChildren={setChildren}
+            Children={Children}
+            Adults={Adults}
+            />
           </div>
         </div>
       </div>

@@ -31,3 +31,4 @@ export async function getRoom(slug: string) {
 
   return result;
 }
+

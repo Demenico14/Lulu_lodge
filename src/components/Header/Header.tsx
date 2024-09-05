@@ -14,7 +14,7 @@ const Header = () => {
   const { data: session } = useSession();
 
   return (
-    <header className="py-10 px-4 container mx-auto text-xl flex flex-wrap md:flex-nowrap items-center justify-center ">
+    <header className="py-10 px-4 container mx-auto text-xl flex flex-wrap  md:flex-nowrap items-center justify-center ">
       <div className="flex items-center w-full md:2/3 ">
         <Link href="/" aria-label="Lulu Guest Lodge Homepage">
           <Image

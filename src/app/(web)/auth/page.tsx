@@ -18,7 +18,7 @@ const Auth = () => {
   const [formData, setformData] = useState(defaultFormData);
 
   const inputStyles =
-    "border border-gray-300 sm:text-sm text-black rounded-lg block w-full p-2.5 focus:outline-none";
+    "border border-gray-300 sm:text-sm text-black  rounded-lg block w-full p-2.5 focus:outline-none";
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -59,7 +59,7 @@ const Auth = () => {
     }
   };
 
-  const labelStyles = "block mb-2 text-sm font-medium text-gray-900";
+  const labelStyles = "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
 
   return (
     <section className=" flex items-center justify-center remove-scrollbar mt-28 container mx-auto">
