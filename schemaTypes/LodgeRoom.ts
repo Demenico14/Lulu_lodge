@@ -60,7 +60,7 @@ const hotelRoom = {
         },
       ],
       validation: Rule =>
-        Rule.required().min(3).error('Minimum of 3 images required'),
+        Rule.required().min(3).error('Minimum of 4 images required'),
     }),
     defineField({
       name: 'coverImage',
