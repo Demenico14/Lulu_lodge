@@ -53,11 +53,10 @@ const hotelRoom = {
       type: 'array',
       of: [
         {
-          type: 'object',
-          fields: [
-            { name: 'url', type: 'url', title: 'URL' },
-            { name: 'file', type: 'file', title: 'File' },
-          ],
+          type: 'image',
+          options: {
+            hotspot: true,  // Allows for image cropping in the Sanity UI
+          },
         },
       ],
       validation: Rule =>
@@ -66,13 +65,13 @@ const hotelRoom = {
     defineField({
       name: 'coverImage',
       title: 'Cover Image',
-      type: 'object',
-      fields: [
-        { name: 'url', type: 'url', title: 'URL' },
-        { name: 'file', type: 'file', title: 'File' },
-      ],
+      type: 'image',
+      options: {
+        hotspot: true,  // Allows for image cropping in the Sanity UI
+      },
       validation: Rule => Rule.required().error('Cover Image is required'),
     }),
+    
     defineField({
       name: 'type',
       title: 'Room Type',

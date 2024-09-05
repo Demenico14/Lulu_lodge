@@ -65,13 +65,13 @@ const Contact: React.FC = () => {
               Send
             </button>
             <div className="text-14-regular mt-20 flex justify-between">
-              <p className="text-dark-600 xl:text-left">© 2024 Lulu Lodge</p>
+              <p className="text-dark-600 xl:text-left">© 2023 Lulu Lodge</p>
             </div>
           </form>
         </div>
 
         {/* Map Container */}
-        <div className="flex-1 md:w-1/2">
+        <div className="flex-1 md:w-full">
           <Map />
         </div>
       </div>

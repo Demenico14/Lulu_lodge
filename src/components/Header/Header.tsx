@@ -23,6 +23,7 @@ const Header = () => {
             width={100}
             height={64}
             className="h-20 w-auto font-black text-[#F27405]"
+            priority
           />
         </Link>
         <ul className="flex items-center ml-auto md:ml-auto md:justify-end lg:ml-5">

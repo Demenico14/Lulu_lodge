@@ -39,6 +39,7 @@
     "react-vertical-timeline-component": "^3.6.0",
     "sanity": "^3.56.0",
     "swiper": "^11.1.11",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"

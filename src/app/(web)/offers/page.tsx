@@ -17,8 +17,8 @@ const Offers = () => {
           </p>
           <div className="grid grid-cols-2 gap-4">
             {[
-              "/assets/images/picture5.webp",
-              "/assets/images/picture5.webp",
+              "/assets/images/Sunset-Cruise.webp",
+              "/assets/images/falls.webp",
             ].map((src, index) => (
               <Image
                 key={index}
