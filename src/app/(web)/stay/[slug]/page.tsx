@@ -26,7 +26,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
 
   const fetchRoom = async () => getRoom(slug);
 
-  const { data: room, error, isLoading } = useSWR("/api/room", fetchRoom);
+  const { data: room, error, isLoading } = useSWR([`/api/room/${slug}`, slug], fetchRoom);
 
   if (error) throw new Error("Cannot fetch data");
   if (!isLoading && !room) throw new Error("Cannot fetch data");
@@ -65,13 +65,13 @@ const RoomDetails = (props: { params: { slug: string } }) => {
         hotelRoomSlug,
       });
 
-      const { data: stripeSession } = await axios.post('/api/stripe', {
-        checkinDate: new Date(checkinDate).toISOString(),  // Send in correct date format
+      const { data: stripeSession } = await axios.post("/api/stripe", {
+        checkinDate: new Date(checkinDate).toISOString(),
         checkoutDate: new Date(checkoutDate).toISOString(),
-        Adults: Number(Adults),  // Ensure this is a number
-        children: Number(Children),  // Ensure this is a number
-        numberOfDays,  // Ensure it's correctly calculated
-        hotelRoomSlug,  // Ensure it's a string
+        adults: Number(Adults),  // Use lowercase to match your server-side code
+        children: Number(Children),
+        numberOfDays,
+        hotelRoomSlug,
       });
       
 

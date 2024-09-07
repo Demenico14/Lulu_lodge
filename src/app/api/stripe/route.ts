@@ -16,6 +16,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-06-20",
 });
 
+// Define the missing RequestData type
 type RequestData = {
   checkinDate: string;
   checkoutDate: string;
@@ -25,7 +26,14 @@ type RequestData = {
   hotelRoomSlug: string;
 };
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
+  let requestData: RequestData;
+  try {
+    requestData = await req.json();
+  } catch {
+    return new NextResponse("Invalid request data", { status: 400 });
+  }
+
   const {
     checkinDate,
     adults,
@@ -33,7 +41,7 @@ export async function POST(req: Request, res: Response) {
     children,
     hotelRoomSlug,
     numberOfDays,
-  }: RequestData = await req.json();
+  } = requestData;
 
   if (
     !checkinDate ||
@@ -72,7 +80,7 @@ export async function POST(req: Request, res: Response) {
     const totalPrice = discountPrice * numberOfDays;
 
     const images = room.images
-      ? room.images.map((image) => urlFor(image).url())
+      ? room.images.map((image) => urlFor(image)?.url())
       : [];
 
     // Create a stripe Payment
@@ -91,7 +99,7 @@ export async function POST(req: Request, res: Response) {
           },
         },
       ],
-      payment_method_types: ["card", "paypal"],
+      payment_method_types: ["card"], // Check if PayPal is supported in your environment
       success_url: `${origin}/users/${userId}`,
       metadata: {
         adults,
