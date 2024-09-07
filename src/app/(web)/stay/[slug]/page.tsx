@@ -10,16 +10,19 @@ import { AiOutlineMedicineBox } from "react-icons/ai";
 import { GiSmokeBomb } from "react-icons/gi";
 import BookRoomCta from "@/components/BookRoomCta/BookRoomCta";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { getStripe } from "@/libs/stripe";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
   const {
     params: { slug },
   } = props;
 
-  const [checkinDate, setCheckinDate] = useState<Date | null >(null)
-  const [checkoutDate, setCheckoutDate] = useState<Date | null >(null)
-  const [Adults, setAdults] = useState(1)
-  const [Children, setChildren] = useState(1)
+  const [checkinDate, setCheckinDate] = useState<Date | null>(null);
+  const [checkoutDate, setCheckoutDate] = useState<Date | null>(null);
+  const [Adults, setAdults] = useState(1);
+  const [Children, setChildren] = useState(0);
 
   const fetchRoom = async () => getRoom(slug);
 
@@ -31,13 +34,69 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   if (!room) return <LoadingSpinner />;
 
   const calcMinCheckoutDate = () => {
-    if(checkinDate) {
+    if (checkinDate) {
       const nextDay = new Date(checkinDate);
       nextDay.setDate(nextDay.getDate() + 1);
-      return nextDay
+      return nextDay;
     }
-    return undefined
-  }
+    return undefined;
+  };
+
+  const handleBookNowClick = async () => {
+    if (!checkinDate || !checkoutDate)
+      return toast.error('Please provide checkin / checkout date');
+
+    if (checkinDate > checkoutDate)
+      return toast.error('Please choose a valid checkin period');
+
+    const numberOfDays = calcNumDays();
+
+    const hotelRoomSlug = room.slug.current;
+
+    const stripe = await getStripe();
+
+    try {
+      console.log({
+        checkinDate,
+        checkoutDate,
+        Adults,
+        children: Children,
+        numberOfDays,
+        hotelRoomSlug,
+      });
+
+      const { data: stripeSession } = await axios.post('/api/stripe', {
+        checkinDate: new Date(checkinDate).toISOString(),  // Send in correct date format
+        checkoutDate: new Date(checkoutDate).toISOString(),
+        Adults: Number(Adults),  // Ensure this is a number
+        children: Number(Children),  // Ensure this is a number
+        numberOfDays,  // Ensure it's correctly calculated
+        hotelRoomSlug,  // Ensure it's a string
+      });
+      
+
+      if (stripe) {
+        const result = await stripe.redirectToCheckout({
+          sessionId: stripeSession.id,
+        });
+
+        if (result.error) {
+          toast.error('Payment Failed');
+        }
+      }
+    } catch (error) {
+      console.log('Error: ', error);
+      toast.error('An error occured');
+    }
+  };
+
+
+  const calcNumDays = () => {
+    if (!checkinDate || !checkoutDate) return;
+    const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
+    const noOfDays = Math.ceil(timeDiff / (24 * 60 * 60 * 1000));
+    return noOfDays;
+  };
 
   return (
     <>
@@ -124,19 +183,21 @@ const RoomDetails = (props: { params: { slug: string } }) => {
           </div>
 
           <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-amber-50 sticky top-10 h-fit overflow-auto z-10">
-            <BookRoomCta 
-            discount={room.discount}
-            price={room.price}
-            specialNote={room.specialNote}
-            checkinDate={checkinDate}
-            setcheckinDate={setCheckinDate}
-            checkoutDate={checkoutDate}
-            setcheckoutDate={setCheckoutDate}
-            calcMinCheckoutDate={calcMinCheckoutDate}
-            setAdults={setAdults}
-            setChildren={setChildren}
-            Children={Children}
-            Adults={Adults}
+            <BookRoomCta
+              discount={room.discount}
+              price={room.price}
+              specialNote={room.specialNote}
+              checkinDate={checkinDate}
+              setcheckinDate={setCheckinDate}
+              checkoutDate={checkoutDate}
+              setcheckoutDate={setCheckoutDate}
+              calcMinCheckoutDate={calcMinCheckoutDate}
+              setAdults={setAdults}
+              setChildren={setChildren}
+              Children={Children}
+              Adults={Adults}
+              isBooked={room.isBooked}
+              handleBookNowClick={handleBookNowClick}
             />
           </div>
         </div>

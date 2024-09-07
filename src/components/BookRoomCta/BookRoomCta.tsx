@@ -17,6 +17,9 @@ type Props = {
   Children: number;
   Adults: number;
   specialNote: string;
+  isBooked:boolean;
+  handleBookNowClick: () => void;
+
 };
 
 const BookRoomCta: FC<Props> = (props) => {
@@ -33,10 +36,13 @@ const BookRoomCta: FC<Props> = (props) => {
     setChildren,
     Children,
     Adults,
+    isBooked,
+   handleBookNowClick
+
+
   } = props;
 
   const discountPrice = price - (price / 100) * discount;
-
 
   const calcNoOfDays = () => {
     if (!checkinDate || !checkoutDate) return 0;
@@ -112,16 +118,16 @@ const BookRoomCta: FC<Props> = (props) => {
           >
             Adults
           </label>
-          <input 
-            type="number" 
-            name="adults" 
-            id="adults" 
-            value={Adults} 
-             onChange={(e) => setAdults(+e.target.value) }
-             min={1}
-             max={5}
-             className="w-full border border-gray-300 rounded-lg p-2.5"
-             />
+          <input
+            type="number"
+            name="adults"
+            id="adults"
+            value={Adults}
+            onChange={(e) => setAdults(+e.target.value)}
+            min={1}
+            max={5}
+            className="w-full border border-gray-300 rounded-lg p-2.5"
+          />
         </div>
         <div className="w-1/2 pl-2">
           <label
@@ -130,25 +136,37 @@ const BookRoomCta: FC<Props> = (props) => {
           >
             Children
           </label>
-          <input 
-            type="number" 
-            name="Children" 
-            id="Children" 
-            value={Children} 
-             onChange={(e) => setChildren(+e.target.value) }
-             min={1}
-             max={5}
-             className="w-full border border-gray-300 rounded-lg p-2.5"
-             />
+          <input
+            type="number"
+            name="Children"
+            id="Children"
+            value={Children}
+            onChange={(e) => setChildren(+e.target.value)}
+            min={0}
+            max={5}
+            className="w-full border border-gray-300 rounded-lg p-2.5"
+          />
         </div>
       </div>
 
       {calcNoOfDays() > 0 ? (
-        <p className='mt-3'>Total Price: $ {calcNoOfDays() * discountPrice}</p>
+        <p className="mt-3">Total Price: $ {calcNoOfDays() * discountPrice}</p>
       ) : (
         <></>
       )}
+      <div>
+      <button
+       disabled={isBooked}
+       onClick={handleBookNowClick}
+       className="btn-primary w-full mt-6 disabled:bg-gray-500 disabled:cursor-not-allowed">
+        {isBooked ? "Booked" : "Book Now" }
+      </button>
+
+      </div>
+
     </div>
+   
+
   );
 };
 

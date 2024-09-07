@@ -45,7 +45,7 @@ const RoomCard: FC<Props> = (props) => {
 
         <Link
           href={`/stay/${slug.current}`}
-          className='bg-green-500 inline-block text-center w-full py-4 rounded-xl text-white text-xl font-bold hover:-translate-y-2 hover:shadow-lg transition-all duration-500'
+          className='bg-primary inline-block text-center w-full py-4 rounded-xl text-white text-xl font-bold hover:-translate-y-2 hover:shadow-lg transition-all duration-500'
         >
           {isBooked ? 'BOOKED' : 'VIEW'}
         </Link>
