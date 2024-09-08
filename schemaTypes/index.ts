@@ -1,6 +1,6 @@
 import account from "./account";
 import booking from "./booking";
-import lodgeRoom from "./LodgeRoom";
+import lodgeRoom from "./hotelRoom";
 import review from "./review";
 import user from "./user";
 import verificationToken from "./verificationToken";

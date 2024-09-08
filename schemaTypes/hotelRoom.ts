@@ -1,7 +1,7 @@
 import { defineField } from 'sanity';
 
 const roomTypes = [
-  { title: 'Basic', value: 'basic' },
+  { title: 'Standard', value: 'basic' },
   { title: 'Luxury', value: 'luxury' },
   { title: 'Suite', value: 'suite' },
 ];
@@ -128,12 +128,7 @@ const hotelRoom = {
       type: 'boolean',
       initialValue: false,
     }),
-    defineField({
-      name: 'reviews',
-      title: 'Reviews',
-      type: 'array',
-      of: [{ type: 'review' }],
-    }),
+    
   ],
 };
 

@@ -99,14 +99,14 @@ export async function POST(req: Request) {
           },
         },
       ],
-      payment_method_types: ["card"], // Check if PayPal is supported in your environment
+      payment_method_types: ["card", "paypal"], // Check if PayPal is supported in your environment
       success_url: `${origin}/users/${userId}`,
       metadata: {
         adults,
         checkinDate: formattedCheckinDate,
         checkoutDate: formattedCheckoutDate,
         children,
-        hotelRoom: room._id,
+        hotelRoom: room.name,
         numberOfDays,
         user: userId,
         discount: room.discount,

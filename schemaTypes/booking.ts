@@ -65,20 +65,7 @@ const booking = {
       type: 'number',
       validation: Rule => Rule.required().min(0),
     }),
-    defineField({
-      name: 'carPickup',
-      title: 'Car Pickup',
-      type: 'boolean',
-      initialValue: false,
-      validation: Rule => Rule.required(),
-    }),
-    defineField({
-      name: 'Pay_On_Arrival',
-      title: 'Pay On Arrival',
-      type: 'boolean',
-      initialValue: false,
-      validation: Rule => Rule.required(),
-    }),
+    
   ],
 };
 
