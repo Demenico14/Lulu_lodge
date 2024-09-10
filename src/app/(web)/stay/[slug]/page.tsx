@@ -172,14 +172,6 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               </div>
             </div>
 
-            <div className="shadow dark:shadow-white rounded-lg p-6">
-              <div className="items- center mb-4">
-                <p className="md:text-lg font-semibold"> Customer Reviews</p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Reviews */}
-              </div>
-            </div>
           </div>
 
           <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-amber-50 sticky top-10 h-fit overflow-auto z-10">

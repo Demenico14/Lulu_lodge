@@ -1,7 +1,7 @@
 import { defineField } from 'sanity';
 
 const roomTypes = [
-  { title: 'Standard', value: 'basic' },
+  { title: 'Basic', value: 'basic' },
   { title: 'Luxury', value: 'luxury' },
   { title: 'Suite', value: 'suite' },
 ];
@@ -53,25 +53,26 @@ const hotelRoom = {
       type: 'array',
       of: [
         {
-          type: 'image',
-          options: {
-            hotspot: true,  // Allows for image cropping in the Sanity UI
-          },
+          type: 'object',
+          fields: [
+            { name: 'url', type: 'url', title: 'URL' },
+            { name: 'file', type: 'file', title: 'File' },
+          ],
         },
       ],
       validation: Rule =>
-        Rule.required().min(3).error('Minimum of 4 images required'),
+        Rule.required().min(3).error('Minimum of 3 images required'),
     }),
     defineField({
       name: 'coverImage',
       title: 'Cover Image',
-      type: 'image',
-      options: {
-        hotspot: true,  // Allows for image cropping in the Sanity UI
-      },
+      type: 'object',
+      fields: [
+        { name: 'url', type: 'url', title: 'URL' },
+        { name: 'file', type: 'file', title: 'File' },
+      ],
       validation: Rule => Rule.required().error('Cover Image is required'),
     }),
-    
     defineField({
       name: 'type',
       title: 'Room Type',
@@ -128,7 +129,12 @@ const hotelRoom = {
       type: 'boolean',
       initialValue: false,
     }),
-    
+    defineField({
+      name: 'reviews',
+      title: 'Reviews',
+      type: 'array',
+      of: [{ type: 'review' }],
+    }),
   ],
 };
 

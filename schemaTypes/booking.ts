@@ -13,8 +13,8 @@ const booking = {
       validation: Rule => Rule.required(),
     }),
     defineField({
-      name: 'LodgeRoom',
-      title: 'Lodge Room',
+      name: 'hotelRoom',
+      title: 'Hotel Room',
       type: 'reference',
       to: [{ type: 'hotelRoom' }],
       validation: Rule => Rule.required(),
@@ -65,7 +65,6 @@ const booking = {
       type: 'number',
       validation: Rule => Rule.required().min(0),
     }),
-    
   ],
 };
 

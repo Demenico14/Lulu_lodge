@@ -1,4 +1,4 @@
-import { groq } from "next-sanity";
+import { groq } from 'next-sanity';
 
 export const getFeaturedRoomQuery = groq`*[_type == "hotelRoom" && isFeatured == true][0] {
     _id,
@@ -68,4 +68,14 @@ export const getUserDataQuery = groq`*[_type == 'user' && _id == $userId][0] {
     about,
     _createdAt,
     image,
+}`;
+
+export const getRoomReviewsQuery = groq`*[_type == "review" && hotelRoom._ref == $roomId] {
+    _createdAt,
+    _id,
+    text,
+    user -> {
+        name
+    },
+    userRating
 }`;

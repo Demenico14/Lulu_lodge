@@ -1,13 +1,66 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast"; // Import toast
 import Map from "@/components/Map/Map";
 
+interface FormState {
+  name: string;
+  email: string;
+  message: string;
+}
+
 const Contact: React.FC = () => {
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const [form, setForm] = useState<FormState>({ name: "", email: "", message: "" });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const labelStyles =
     "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
   const inputStyles =
     "border border-gray-300 sm:text-sm text-black rounded-lg block w-full p-2.5 focus:outline-none";
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: form.name,
+          to_name: "DOM",
+          from_email: form.email,
+          to_email: "mushayidominic@gmail.com",
+          message: form.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+
+      setIsLoading(false);
+      // Show success message with toast
+      toast.success("Thank you for your message 😃");
+
+      // Reset form fields
+      setForm({
+        name: "",
+        email: "",
+        message: "",
+      });
+
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
+      // Show error message with toast
+      toast.error("I didn't receive your message 😢");
+    }
+  };
 
   return (
     <section className="flex flex-col md:flex-row items-center justify-center remove-scrollbar mt-28 container mx-auto">
@@ -21,7 +74,7 @@ const Contact: React.FC = () => {
               back to you as soon as possible.
             </p>
           </section>
-          <form className="space-y-4 md:space-y-6">
+          <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit} ref={formRef}>
             <div>
               <label htmlFor="name" className={labelStyles}>
                 Full Name
@@ -32,6 +85,8 @@ const Contact: React.FC = () => {
                 name="name"
                 required
                 className={inputStyles}
+                value={form.name}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -44,6 +99,8 @@ const Contact: React.FC = () => {
                 name="email"
                 required
                 className={inputStyles}
+                value={form.email}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -56,13 +113,16 @@ const Contact: React.FC = () => {
                 required
                 className={inputStyles}
                 rows={4}
+                value={form.message}
+                onChange={handleChange}
               />
             </div>
             <button
               type="submit"
               className="w-full bg-tertiary-light text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              disabled={isLoading}
             >
-              Send
+              {isLoading ? "Sending..." : "Send"}
             </button>
             <div className="text-14-regular mt-20 flex justify-between">
               <p className="text-dark-600 xl:text-left">© 2023 Lulu Lodge</p>
