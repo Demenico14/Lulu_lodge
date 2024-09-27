@@ -13,7 +13,7 @@ function urlFor(source: any) {
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2024-06-20",
+  apiVersion: "2023-08-16",
 });
 
 // Define the missing RequestData type
