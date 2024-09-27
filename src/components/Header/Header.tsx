@@ -79,7 +79,7 @@ const Header = () => {
           <Link href="/offers">Offers</Link>
         </li>
         <li className="hover:-translate-y-2 duration-500 transition-all">
-          <Link href="/stay">Stay</Link>
+          <Link href="/rooms">Stay</Link>
         </li>
         <li className="hover:-translate-y-2 duration-500 transition-all">
           <Link href="/contact">Contact</Link>

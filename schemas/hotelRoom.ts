@@ -38,7 +38,7 @@ const hotelRoom = {
       title: 'Price',
       type: 'number',
       validation: Rule =>
-        Rule.required().min(100).error('Minimum 100 Characters'),
+        Rule.required().min(10).error('Minimum price is 100'),
     }),
     defineField({
       name: 'discount',
@@ -53,11 +53,10 @@ const hotelRoom = {
       type: 'array',
       of: [
         {
-          type: 'object',
-          fields: [
-            { name: 'url', type: 'url', title: 'URL' },
-            { name: 'file', type: 'file', title: 'File' },
-          ],
+          type: 'image',
+          options: {
+            hotspot: true, // Enables image cropping in Sanity studio
+          },
         },
       ],
       validation: Rule =>
@@ -66,11 +65,10 @@ const hotelRoom = {
     defineField({
       name: 'coverImage',
       title: 'Cover Image',
-      type: 'object',
-      fields: [
-        { name: 'url', type: 'url', title: 'URL' },
-        { name: 'file', type: 'file', title: 'File' },
-      ],
+      type: 'image',
+      options: {
+        hotspot: true, // Enables image cropping in Sanity studio
+      },
       validation: Rule => Rule.required().error('Cover Image is required'),
     }),
     defineField({
@@ -89,7 +87,7 @@ const hotelRoom = {
       type: 'text',
       validation: Rule => Rule.required(),
       initialValue:
-        'Check-in time is 12:00 PM, checkout time is 11:59 AM. If you leave behind any items, please contact the receptionist.',
+        'Check-in time is 12:00 PM, checkout time is 11:59 AM. If you leave behind any items, please contact the receptionist. You are Required to Pay on Site',
     }),
     defineField({
       name: 'dimension',

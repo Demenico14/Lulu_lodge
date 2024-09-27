@@ -1,47 +1,36 @@
-import { createBooking, updateHotelRoom } from "@/libs/apis";
-import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
+
+import { createBooking, updateHotelRoom } from '@/libs/apis';
+
+const checkout_session_completed = 'checkout.session.completed';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2024-06-20",
+  apiVersion: '2023-08-16',
 });
 
-const CHECKOUT_SESSION_COMPLETED = "checkout.session.completed";
-
-export async function POST(req: Request) {
+export async function POST(req: Request, res: Response) {
   const reqBody = await req.text();
-  const sig = req.headers.get("stripe-signature");
+  const sig = req.headers.get('stripe-signature');
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
   let event: Stripe.Event;
 
-  // Check for missing signature or webhook secret
-  if (!sig || !webhookSecret) {
-    return new NextResponse(
-      JSON.stringify({ message: "Webhook signature or secret missing." }),
-      { status: 400 }
-    );
-  }
-
   try {
-    // Construct the event
+    if (!sig || !webhookSecret) return;
     event = stripe.webhooks.constructEvent(reqBody, sig, webhookSecret);
   } catch (error: any) {
-    return new NextResponse(
-      JSON.stringify({ message: error.message || "Webhook Error" }),
-      { status: 500 }
-    );
+    return new NextResponse(`Webhook Error: ${error.message}`, { status: 500 });
   }
 
-  // Handle event types
+  // load our event
   switch (event.type) {
-    case CHECKOUT_SESSION_COMPLETED:
-      const session = event.data.object as Stripe.Checkout.Session;
-      console.log("Session => ", session);
+    case checkout_session_completed:
+      const session = event.data.object ;
 
-      // Check if metadata exists before destructuring
-      if (session.metadata) {
-        const {
+      const {
+        // @ts-ignore
+        metadata: {
           adults,
           checkinDate,
           checkoutDate,
@@ -51,47 +40,37 @@ export async function POST(req: Request) {
           user,
           discount,
           totalPrice,
-        } = session.metadata;
+        },
+      } = session;
 
-        try {
-          // Create a Booking
-          await createBooking({
-            adults: Number(adults),
-            checkinDate,
-            checkoutDate,
-            children: Number(children),
-            hotelRoom,
-            numberOfDays: Number(numberOfDays),
-            discount: Number(discount),
-            totalPrice: Number(totalPrice),
-            user,
-          });
+  
 
-          // Update the hotel room
-          await updateHotelRoom(hotelRoom);
+      await createBooking({
+        adults: Number(adults),
+        checkinDate,
+        checkoutDate,
+        children: Number(children),
+        hotelRoom,
+        numberOfDays: Number(numberOfDays),
+        discount: Number(discount),
+        totalPrice: Number(totalPrice),
+        user,
+      });
 
-          return NextResponse.json(
-            { message: "Booking created and room updated successfully." },
-            { status: 200 }
-          );
-        } catch (error: any) {
-          return new NextResponse(
-            JSON.stringify({ message: error.message || "Error creating booking." }),
-            { status: 500 }
-          );
-        }
-      } else {
-        return new NextResponse(
-          JSON.stringify({ message: "Metadata is null or missing." }),
-          { status: 400 }
-        );
-      }
+      //   Update hotel Room
+      await updateHotelRoom(hotelRoom);
+
+      return NextResponse.json('Booking successful', {
+        status: 200,
+        statusText: 'Booking Successful',
+      });
 
     default:
-      console.log(`Unhandled event type: ${event.type}`);
-      return new NextResponse(
-        JSON.stringify({ message: `Unhandled event type: ${event.type}` }),
-        { status: 400 }
-      );
+      console.log(`Unhandled event type ${event.type}`);
   }
+
+  return NextResponse.json('Event Received', {
+    status: 200,
+    statusText: 'Event Received',
+  });
 }

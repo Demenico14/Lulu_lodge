@@ -65,7 +65,7 @@ const Auth = () => {
     <section className=" flex items-center justify-center remove-scrollbar mt-28 container mx-auto">
       <div className="max-w-[496px] ">
         <section className="flex mb-8 flex-col space-y-4 ">
-          <h1 className="header text-tertiary-dark items-center ">
+          <h1 className="text-4xl font-bold dark:text-white text-center text-tertiary-dark items-center ">
             Create an Account
           </h1>
           <p className="text-dark-700">

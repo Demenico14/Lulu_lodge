@@ -13,7 +13,7 @@ const HeroSection = () => {
 const router = useRouter();
 
   const handleFilterClick = () => {
-    router.push(`/stay`);
+    router.push(`/rooms`);
   };
 
   return (

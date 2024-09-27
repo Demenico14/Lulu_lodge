@@ -4,8 +4,8 @@ import styles from "./Map.module.css"; // Import the CSS module
 const Map = () => {
   return (
     <div className="w-full h-full">
-      <div className="mb-8 flex flex-col space-y-4 mt-40"> {/* Adjusted margin-top */}
-        <h1 className="header text-black dark:text-white">Our Location</h1>
+      <div className="mb-8 flex flex-col space-y-4 "> 
+        <h1 className="text-4xl text-black font-black dark:text-white text-center">Our Location</h1>
         <p className="text-black dark:text-[#ffffffea] mb-12 text-center">
           We are located at 1714 BB7, Low Density, Victoria Falls, Zimbabwe
         </p>

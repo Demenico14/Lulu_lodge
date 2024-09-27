@@ -71,7 +71,7 @@ const FeaturedRoom = () => {
         </div>
         <div className="flex flex-col md:flex-row md:items-end justify-between mt-5">
           <Link
-            href="/stay"
+            href="/rooms"
             className="border h-fit text-center border-tertiary-dark text-tertiary-dark px-3 py-2 lg:py-5 lg:px-7 rounded-2xl font-bold lg:text-xl "
           >
             Expore Rooms
