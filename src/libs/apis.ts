@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { Room, CreateBookingDto } from '@/models/room';
 import sanityClient from "./sanity";
-import * as queries from "./sanityQueries";
+import * as queries from "./sanityqueries";
 import { Booking } from '@/models/booking';
 import { UpdateReviewDto } from '@/models/review';
 import { CreateReviewDto, Review } from './../models/review';
