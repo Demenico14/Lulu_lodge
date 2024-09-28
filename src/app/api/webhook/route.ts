@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-
 import { createBooking, updateHotelRoom } from '@/libs/apis';
+import emailjs from "@emailjs/browser";
 
 const checkout_session_completed = 'checkout.session.completed';
 
@@ -23,10 +23,10 @@ export async function POST(req: Request, res: Response) {
     return new NextResponse(`Webhook Error: ${error.message}`, { status: 500 });
   }
 
-  // load our event
+  // Handle the event
   switch (event.type) {
     case checkout_session_completed:
-      const session = event.data.object ;
+      const session = event.data.object;
 
       const {
         // @ts-ignore
@@ -43,8 +43,7 @@ export async function POST(req: Request, res: Response) {
         },
       } = session;
 
-  
-
+      // Create booking
       await createBooking({
         adults: Number(adults),
         checkinDate,
@@ -57,8 +56,31 @@ export async function POST(req: Request, res: Response) {
         user,
       });
 
-      //   Update hotel Room
+      // Update hotel room
       await updateHotelRoom(hotelRoom);
+
+      // Send confirmation email using EmailJS
+      const templateParams = {
+        hotelRoom: hotelRoom,
+        user_name: user,
+        checkin_date: checkinDate,
+        checkout_date: checkoutDate,
+        hotel_room: hotelRoom,
+        total_price: totalPrice,
+        number_of_adults: adults,
+        number_of_children: children,
+      };
+
+      emailjs.send(
+        process.env.EMAILJS_SERVICE_ID as string, // Your EmailJS service ID
+        process.env.EMAILJS_TEMPLATE_ID as string, // Your EmailJS template ID
+        templateParams,
+        process.env.EMAILJS_USER_ID as string // Your EmailJS user ID (public key)
+      ).then((response) => {
+        console.log('Email sent successfully:', response.status, response.text);
+      }).catch((err) => {
+        console.error('Error sending email:', err);
+      });
 
       return NextResponse.json('Booking successful', {
         status: 200,

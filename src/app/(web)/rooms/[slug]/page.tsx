@@ -10,7 +10,7 @@ import axios from 'axios';
 
 import { getRoom } from '@/libs/apis';
 import LoadingSpinner from '../../loading';
-import HotelPhotoGallery from '@/components/LodgePhotoGallery/LodgePhotoGallery';
+import HotelPhotoGallery from '@/components/HotelPhotoGallery/HotelPhotoGallery';
 import BookRoomCta from '@/components/BookRoomCta/BookRoomCta';
 import toast from 'react-hot-toast';
 import { getStripe } from '@/libs/stripe';
@@ -42,7 +42,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
       nextDay.setDate(nextDay.getDate() + 1);
       return nextDay;
     }
-    return undefined;
+    return null;
   };
 
   const handleBookNowClick = async () => {
@@ -57,8 +57,6 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     const hotelRoomSlug = room.slug.current;
 
     const stripe = await getStripe();
-
-    
 
     try {
       const { data: stripeSession } = await axios.post('/api/stripe', {
@@ -179,14 +177,14 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               price={room.price}
               specialNote={room.specialNote}
               checkinDate={checkinDate}
-              setcheckinDate={setCheckinDate}
+              setCheckinDate={setCheckinDate}
               checkoutDate={checkoutDate}
-              setcheckoutDate={setCheckoutDate}
+              setCheckoutDate={setCheckoutDate}
               calcMinCheckoutDate={calcMinCheckoutDate}
-              Adults={adults}
-              Children={noOfChildren}
+              adults={adults}
+              noOfChildren={noOfChildren}
               setAdults={setAdults}
-              setChildren={setNoOfChildren}
+              setNoOfChildren={setNoOfChildren}
               isBooked={room.isBooked}
               handleBookNowClick={handleBookNowClick}
             />

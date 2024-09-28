@@ -22,7 +22,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: ' Bar Chart',
+      text: 'Chart.js Bar Chart',
     },
   },
 };

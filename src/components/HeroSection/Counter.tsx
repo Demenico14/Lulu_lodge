@@ -1,5 +1,5 @@
 import React from 'react'
-import CountUpNumber from '../CountUpNumber.tsx/CountUpNumber'
+import CountUpNumber from '../CountUpNumber/CountUpNumber'
 
 const Counter = () => {
   return (
