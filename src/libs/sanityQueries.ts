@@ -79,4 +79,3 @@ export const getRoomReviewsQuery = groq`*[_type == "review" && hotelRoom._ref ==
     },
     userRating
 }`;
-//comment 
