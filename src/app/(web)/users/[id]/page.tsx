@@ -97,8 +97,8 @@ const UserDetails = (props: { params: { id: string } }) => {
         <div className='hidden md:block md:col-span-4 lg:col-span-3 shadow-lg h-fit sticky top-10 bg-[#eff0f2] text-black rounded-lg px-6 py-4'>
           <div className='md:w-[143px] w-28 h-28 md:h-[143px] mx-auto mb-5 rounded-full overflow-hidden'>
             <Image
-              src={userData.image}
-              alt={userData.name}
+              src={userData.image || '/assets/icons/default-profile.png'}
+              alt={userData.name || 'users'}
               width={143}
               height={143}
               className='img scale-animation rounded-full'
@@ -129,7 +129,7 @@ const UserDetails = (props: { params: { id: string } }) => {
               className='img scale-animation rounded-full'
               width={56}
               height={56}
-              src={userData.image}
+              src={userData.image || '/assets/icons/default-profile.png'}
               alt='User  Name'
             />
           </div>

@@ -29,7 +29,7 @@ const Auth = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (session) router.push('/');
+    if (session) router.push('/rooms');
   }, [router, session]);
 
   console.log(session);
@@ -129,7 +129,7 @@ const Auth = () => {
             type="submit"
             className="w-full bg-tertiary-light text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            Continue
+            Create
           </button>
           <div className="text-14-regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left ">

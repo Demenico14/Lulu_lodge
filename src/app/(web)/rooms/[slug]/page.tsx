@@ -15,6 +15,7 @@ import BookRoomCta from '@/components/BookRoomCta/BookRoomCta';
 import toast from 'react-hot-toast';
 import { getStripe } from '@/libs/stripe';
 import RoomReview from '@/components/RoomReview/RoomReview';
+import { useRouter } from "next/navigation";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
   const {
@@ -29,6 +30,8 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   const fetchRoom = async () => getRoom(slug);
 
   const { data: room, error, isLoading } = useSWR('/api/room', fetchRoom);
+
+  const router = useRouter();
 
   if (error) throw new Error('Cannot fetch data');
   if (typeof room === 'undefined' && !isLoading)
@@ -79,7 +82,8 @@ const RoomDetails = (props: { params: { slug: string } }) => {
       }
     } catch (error) {
       console.log('Error: ', error);
-      toast.error('An error occured');
+      toast.error('You Must be Logged In to make a booking');
+      router.push('/auth')
     }
   };
 
