@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import emailjs from '@emailjs/browser';
@@ -90,7 +90,7 @@ const BookRoomCta: FC<Props> = (props) => {
 
     try {
       // Call the existing booking function first
-       // Call original booking function
+      // Call original booking function
 
       // Send email using EmailJS
       await emailjs.send(
@@ -99,11 +99,12 @@ const BookRoomCta: FC<Props> = (props) => {
         emailData,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       );
-      
+
       handleBookNowClick();
 
       setIsLoading(false);
-      toast.success("Booking request sent! We'll get back to you soon. 😊");
+      toast.success("Booking request sent! Check User Profile to view Booking .  ");
+
     } catch (error) {
       setIsLoading(false);
       console.error(error);
@@ -136,7 +137,7 @@ const BookRoomCta: FC<Props> = (props) => {
       <div className='mb-4'>
         <label
           htmlFor='email'
-          className='block text-sm font-medium text-gray-900 dark:text-gray-400 '
+          className='block text-sm font-medium text-gray-900 dark:text-gray-400'
         >
           Email Address
         </label>
@@ -146,7 +147,7 @@ const BookRoomCta: FC<Props> = (props) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className='w-full border text-black  border-gray-300 rounded-lg p-2.5'
+          className='w-full border text-black border-gray-300 rounded-lg p-2.5'
         />
       </div>
 
@@ -192,7 +193,7 @@ const BookRoomCta: FC<Props> = (props) => {
             onChange={(e) => setAdults(+e.target.value)}
             min={1}
             max={5}
-            className='w-full border  text-black border-gray-300 rounded-lg p-2.5'
+            className='w-full border text-black border-gray-300 rounded-lg p-2.5'
           />
         </div>
         <div className='w-1/2 pl-2'>
@@ -206,7 +207,7 @@ const BookRoomCta: FC<Props> = (props) => {
             onChange={(e) => setNoOfChildren(+e.target.value)}
             min={0}
             max={3}
-            className='w-full border  text-black border-gray-300 rounded-lg p-2.5'
+            className='w-full border text-black border-gray-300 rounded-lg p-2.5'
           />
         </div>
       </div>
@@ -220,7 +221,7 @@ const BookRoomCta: FC<Props> = (props) => {
       <button
         disabled={isBooked || isLoading}
         onClick={handleBookNowClickWithEmail} // Use the new click handler
-        className='btn-primary w-full mt-6 disabled:bg-gray-500 disabled:cursor-not-allowed'
+        className='btn-primary w-full  mt-6 disabled:bg-gray-500 disabled:cursor-not-allowed'
       >
         {isLoading ? 'Sending...' : isBooked ? 'Booked' : 'Book Now'}
       </button>

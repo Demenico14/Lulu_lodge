@@ -13,7 +13,6 @@ import LoadingSpinner from '../../loading';
 import HotelPhotoGallery from '@/components/HotelPhotoGallery/HotelPhotoGallery';
 import BookRoomCta from '@/components/BookRoomCta/BookRoomCta';
 import toast from 'react-hot-toast';
-import { getStripe } from '@/libs/stripe';
 import RoomReview from '@/components/RoomReview/RoomReview';
 import { useRouter } from "next/navigation";
 
@@ -49,20 +48,20 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   };
 
   const handleBookNowClick = async () => {
-    if (!checkinDate || !checkoutDate)
-      return toast.error('Please provide checkin / checkout date');
+    if (!checkinDate || !checkoutDate) {
+      return toast.error('Please provide check-in / check-out date');
+    }
 
-    if (checkinDate > checkoutDate)
-      return toast.error('Please choose a valid checkin period');
+    if (checkinDate > checkoutDate) {
+      return toast.error('Please choose a valid check-in period');
+    }
 
     const numberOfDays = calcNumDays();
-
     const hotelRoomSlug = room.slug.current;
 
-    const stripe = await getStripe();
-
     try {
-      const { data: stripeSession } = await axios.post('/api/stripe', {
+      // Make a POST request to create a booking
+      const { data: response } = await axios.post('/api/bookings', {
         checkinDate,
         checkoutDate,
         adults,
@@ -71,19 +70,18 @@ const RoomDetails = (props: { params: { slug: string } }) => {
         hotelRoomSlug,
       });
 
-      if (stripe) {
-        const result = await stripe.redirectToCheckout({
-          sessionId: stripeSession.id,
-        });
-
-        if (result.error) {
-          toast.error('Payment Failed');
-        }
+      if (response.status === 201) {
+        toast.success('Booking created successfully!');
+        // Optionally reset form or navigate to a confirmation page
       }
-    } catch (error) {
-      console.log('Error: ', error);
-      toast.error('You Must be Logged In to make a booking');
-      router.push('/auth')
+    } catch (error: any) {
+      console.error('Error creating booking:', error);
+      toast.error('Error creating booking. Please try again later.');
+
+      if (error.response?.status === 401) {
+        // Redirect to login if user is not authenticated
+        router.push('/auth');
+      }
     }
   };
 
