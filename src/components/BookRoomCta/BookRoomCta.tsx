@@ -4,7 +4,6 @@ import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import emailjs from '@emailjs/browser';
-import toast from 'react-hot-toast'; // Import toast
 import axios from 'axios'; // Import axios
 import { User } from '@/models/user';
 
@@ -103,12 +102,10 @@ const BookRoomCta: FC<Props> = (props) => {
       handleBookNowClick();
 
       setIsLoading(false);
-      toast.success("Booking request sent! Check User Profile to view Booking .  ");
 
     } catch (error) {
       setIsLoading(false);
       console.error(error);
-      toast.error("Failed to send booking request. Please try again. 😢");
     }
   };
 

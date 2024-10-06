@@ -71,7 +71,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
       });
 
       if (response.status === 201) {
-        toast.success('Booking created successfully!');
+        toast.success('Booking created successfully!, Check User Profile to view Booking .');
         // Optionally reset form or navigate to a confirmation page
       }
     } catch (error: any) {
