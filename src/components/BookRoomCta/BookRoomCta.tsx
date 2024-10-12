@@ -6,6 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import emailjs from '@emailjs/browser';
 import axios from 'axios'; // Import axios
 import { User } from '@/models/user';
+import toast from 'react-hot-toast';
 
 
 type Props = {
@@ -102,6 +103,8 @@ const BookRoomCta: FC<Props> = (props) => {
       handleBookNowClick();
 
       setIsLoading(false);
+      toast.success("Booking request sent! Check Profile for confirmation. ");
+
 
     } catch (error) {
       setIsLoading(false);
