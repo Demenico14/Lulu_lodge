@@ -103,7 +103,6 @@ const BookRoomCta: FC<Props> = (props) => {
       handleBookNowClick();
 
       setIsLoading(false);
-      toast.success("Booking request sent! Check Profile for confirmation. ");
 
 
     } catch (error) {
