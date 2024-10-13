@@ -72,10 +72,7 @@ const Auth = () => {
             Welcome! Please fill in the details to get started.
           </p>
           <span className="inline-flex items-center justify-center">
-            <BiLogoFacebookCircle
-             onClick={loginHandler}
-             className="mr-3 text-4xl cursor-pointer text-blue-700 dark:text-white" />{" "}
-            |
+            
             <FcGoogle
             onClick={loginHandler}
             className="ml-3 text-4xl cursor-pointer" />
