@@ -101,7 +101,6 @@ const BookRoomCta: FC<Props> = (props) => {
       );
 
       handleBookNowClick();
-      toast.success("Booking request sent! Check User Profile Dashboard to View Booking Request.");
     } catch (error) {
      console.error(error);
      toast.error("Failed to send booking request. Please try again. 😢");
