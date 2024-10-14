@@ -76,7 +76,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
       }
     } catch (error: any) {
       console.error('Error creating booking:', error);
-      toast.error('Error creating booking. Please Create a Account For Booking.');
+      toast.error('Please Create a Account For Booking A Stay.');
 
       if (error.response?.status === 401) {
         // Redirect to login if user is not authenticated
