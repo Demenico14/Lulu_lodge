@@ -84,7 +84,7 @@ const BookRoomCta: FC<Props> = (props) => {
       children: noOfChildren,
       totalPrice: (calcNoOfDays() * discountPrice).toFixed(2),
       message: specialNote,
-      reply_to: "luluguestlodge@gmail.com", // Set reply-to as the lodge's email
+      reply_to: "mushayidominic@gmail.com", // Set reply-to as the lodge's email
     }
 
     try {
