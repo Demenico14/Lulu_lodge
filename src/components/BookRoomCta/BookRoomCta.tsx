@@ -75,20 +75,17 @@ const BookRoomCta: FC<Props> = (props) => {
   const sendConfirmationEmail = async () => {
     // Prepare email data according to the template
     const emailData = {
-      from_name: userName || email,
-      to_name: "Lulu Management Team",
+      from_name: "Lulu Guest Lodge",
+      to_name: userName || "Valued Guest",
+      to_email: email, // This ensures the email goes to the client's email address
       checkin: checkinDate?.toLocaleDateString() || "Not provided",
       checkout: checkoutDate?.toLocaleDateString() || "Not provided",
       adults,
       children: noOfChildren,
       totalPrice: (calcNoOfDays() * discountPrice).toFixed(2),
       message: specialNote,
-      email: email, // Add email to the data
+      reply_to: "mushayidominic@gmail.com", // Set reply-to as the lodge's email
     }
-
-    console.log("Sending email with data:", emailData)
-    console.log("Using service ID:", process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID)
-    console.log("Using template ID:", process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID)
 
     try {
       // Send email confirmation
@@ -125,7 +122,6 @@ const BookRoomCta: FC<Props> = (props) => {
       await handleBookNowClick()
 
       // If booking is successful, try to send confirmation email
-      // But don't make the booking dependent on email success
       const emailSent = await sendConfirmationEmail()
 
       if (emailSent) {
