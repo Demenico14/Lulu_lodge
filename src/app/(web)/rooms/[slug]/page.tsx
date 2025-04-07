@@ -52,7 +52,8 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     return noOfDays
   }
 
-  const handleBookNowClick = async () => {
+  // Update the handleBookNowClick function to accept and use the phone number
+  const handleBookNowClick = async (phoneNumber?: string) => {
     if (!checkinDate || !checkoutDate) {
       throw new Error("Please provide check-in / check-out date")
     }
@@ -72,6 +73,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
       children: noOfChildren,
       numberOfDays,
       hotelRoomSlug,
+      phoneNumber, // Add the phone number to the booking data
     })
 
     // Refresh the room data to update the isBooked status

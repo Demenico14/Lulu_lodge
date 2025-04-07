@@ -23,7 +23,7 @@ type Props = {
   noOfChildren: number
   specialNote: string
   isBooked: boolean
-  handleBookNowClick: () => Promise<void>
+  handleBookNowClick: (phoneNumber?: string) => Promise<void>
 }
 
 const BookRoomCta: FC<Props> = (props) => {
@@ -47,6 +47,7 @@ const BookRoomCta: FC<Props> = (props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [email, setEmail] = useState<string>("")
   const [userName, setUserName] = useState<string>("")
+  const [phoneNumber, setPhoneNumber] = useState<string>("")
 
   const discountPrice = price - (price / 100) * discount
 
@@ -78,6 +79,7 @@ const BookRoomCta: FC<Props> = (props) => {
       from_name: "Lulu Guest Lodge",
       to_name: userName || "Valued Guest",
       to_email: email, // This ensures the email goes to the client's email address
+      phone: phoneNumber, // Add phone number to the email data
       checkin: checkinDate?.toLocaleDateString() || "Not provided",
       checkout: checkoutDate?.toLocaleDateString() || "Not provided",
       adults,
@@ -111,6 +113,10 @@ const BookRoomCta: FC<Props> = (props) => {
       return toast.error("Please provide an email address")
     }
 
+    if (!phoneNumber) {
+      return toast.error("Please provide a phone number")
+    }
+
     if (!checkinDate || !checkoutDate) {
       return toast.error("Please select check-in and check-out dates")
     }
@@ -119,7 +125,7 @@ const BookRoomCta: FC<Props> = (props) => {
 
     try {
       // First create the booking
-      await handleBookNowClick()
+      await handleBookNowClick(phoneNumber) // Pass the phone number to handleBookNowClick
 
       // If booking is successful, try to send confirmation email
       const emailSent = await sendConfirmationEmail()
@@ -175,6 +181,21 @@ const BookRoomCta: FC<Props> = (props) => {
           onChange={(e) => setEmail(e.target.value)}
           required
           className="w-full border text-black border-gray-300 rounded-lg p-2.5"
+        />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-900 dark:text-gray-400">
+          Phone Number
+        </label>
+        <input
+          type="tel"
+          id="phoneNumber"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          required
+          className="w-full border text-black border-gray-300 rounded-lg p-2.5"
+          placeholder="e.g. +1 234 567 8900"
         />
       </div>
 

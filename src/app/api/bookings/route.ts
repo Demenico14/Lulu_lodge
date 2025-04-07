@@ -10,10 +10,12 @@ type RequestData = {
   children: number
   numberOfDays: number
   hotelRoomSlug: string
+  phoneNumber?: string // Add phoneNumber as an optional field
 }
 
 export async function POST(req: Request) {
-  const { checkinDate, adults, checkoutDate, children, hotelRoomSlug, numberOfDays }: RequestData = await req.json()
+  const { checkinDate, adults, checkoutDate, children, hotelRoomSlug, numberOfDays, phoneNumber }: RequestData =
+    await req.json()
 
   // Ensure all required fields are provided
   if (!checkinDate || !checkoutDate || !adults || !hotelRoomSlug || !numberOfDays) {
@@ -59,6 +61,7 @@ export async function POST(req: Request) {
       numberOfDays,
       discount: room.discount,
       totalPrice,
+      phoneNumber, // Add the phone number to the booking
     })
 
     // Update the room status to booked
